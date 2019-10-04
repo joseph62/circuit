@@ -22,6 +22,29 @@ func NewSignalGate(signal Signal) SignalGate {
 	return SignalGate{[]Connection{}, signal}
 }
 
+type ORGate struct {
+  Connections []Connection
+}
+
+func (gate *ORGate) AddConnection(connection Connection) {
+  gate.Connections = append(gate.Connections, connection)
+}
+
+func (gate ORGate) Evaluate() Signal {
+  for i := 0; i < len(gate.Connections); i++ {
+    connection := gate.Connections[i]
+    signal := connection.Evaluate()
+    if signal == HI {
+      return HI
+    }
+  }
+  return LOW
+}
+
+func NewORGate() ORGate {
+  return ORGate{[]Connection{}}
+}
+
 type ANDGate struct {
 	Connections []Connection
 }

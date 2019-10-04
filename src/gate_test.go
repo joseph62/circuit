@@ -35,3 +35,27 @@ func TestANDGateHIAndLOW(t *testing.T) {
 		t.Errorf("ANDGate with HI and LOW input = %s; expected LOW", SignalString(signal))
 	}
 }
+
+func TestORGateOnlyHI(t *testing.T) {
+	andGate := NewORGate()
+	signalGateOne := NewSignalGate(HI)
+	signalGateTwo := NewSignalGate(HI)
+	NewConnection(&signalGateOne, &andGate)
+	NewConnection(&signalGateTwo, &andGate)
+	signal := andGate.Evaluate()
+	if signal != HI {
+		t.Errorf("ORGate with only HI input = %s; expected HI", SignalString(signal))
+	}
+}
+
+func TestORGateHIAndLOW(t *testing.T) {
+	orGate := NewORGate()
+	signalGateOne := NewSignalGate(HI)
+	signalGateTwo := NewSignalGate(LOW)
+	NewConnection(&signalGateOne, &orGate)
+	NewConnection(&signalGateTwo, &orGate)
+	signal := orGate.Evaluate()
+	if signal != HI {
+		t.Errorf("ORGate with HI or LOW input = %s; expected HI", SignalString(signal))
+	}
+}
