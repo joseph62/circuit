@@ -59,3 +59,23 @@ func TestORGateHIAndLOW(t *testing.T) {
 		t.Errorf("ORGate with HI or LOW input = %s; expected HI", SignalString(signal))
 	}
 }
+
+func TestNOTGateHIToLOW(t *testing.T) {
+  notGate := NewNOTGate()
+	signalHI := NewSignalGate(HI)
+	NewConnection(&signalHI, &notGate)
+	signal := notGate.Evaluate()
+	if signal != LOW {
+		t.Errorf("NOTGate with HI input = %s; expected LOW", SignalString(signal))
+	}
+}
+
+func TestNOTGateLOWToHI(t *testing.T) {
+  notGate := NewNOTGate()
+	signalLOW := NewSignalGate(LOW)
+	NewConnection(&signalLOW, &notGate)
+	signal := notGate.Evaluate()
+	if signal != HI {
+		t.Errorf("NOTGate with LOW input = %s; expected HI", SignalString(signal))
+	}
+}

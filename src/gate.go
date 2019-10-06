@@ -75,3 +75,19 @@ func (gate ANDGate) Evaluate() Signal {
 func NewANDGate() ANDGate {
 	return ANDGate{[2]Connection{}, 0}
 }
+
+type NOTGate struct {
+  Connection Connection
+}
+
+func (gate *NOTGate) AddConnection(connection Connection) {
+  gate.Connection = connection
+}
+
+func (gate NOTGate) Evaluate() Signal {
+  return FlipSignal(gate.Connection.Evaluate())
+}
+
+func NewNOTGate() NOTGate {
+  return NOTGate{Connection{}}
+}
