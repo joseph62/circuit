@@ -23,11 +23,15 @@ func NewSignalGate(signal Signal) SignalGate {
 }
 
 type ORGate struct {
-  Connections []Connection
+  Connections [2]Connection
+  ConnectionCount int
 }
 
 func (gate *ORGate) AddConnection(connection Connection) {
-  gate.Connections = append(gate.Connections, connection)
+  if gate.ConnectionCount < 2 {
+    gate.Connections[gate.ConnectionCount] = connection
+    gate.ConnectionCount++
+  }
 }
 
 func (gate ORGate) Evaluate() Signal {
@@ -42,15 +46,19 @@ func (gate ORGate) Evaluate() Signal {
 }
 
 func NewORGate() ORGate {
-  return ORGate{[]Connection{}}
+  return ORGate{[2]Connection{}, 0}
 }
 
 type ANDGate struct {
-	Connections []Connection
+  Connections [2]Connection
+  ConnectionCount int
 }
 
 func (gate *ANDGate) AddConnection(connection Connection) {
-	gate.Connections = append(gate.Connections, connection)
+  if gate.ConnectionCount < 2 {
+    gate.Connections[gate.ConnectionCount] = connection
+    gate.ConnectionCount++
+  }
 }
 
 func (gate ANDGate) Evaluate() Signal {
@@ -65,5 +73,5 @@ func (gate ANDGate) Evaluate() Signal {
 }
 
 func NewANDGate() ANDGate {
-	return ANDGate{[]Connection{}}
+	return ANDGate{[2]Connection{}, 0}
 }
