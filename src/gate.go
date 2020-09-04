@@ -35,14 +35,15 @@ func (gate *ORGate) AddConnection(connection Connection) {
 }
 
 func (gate ORGate) Evaluate() Signal {
+	resultSignal := LOW
 	for i := 0; i < len(gate.Connections); i++ {
 		connection := gate.Connections[i]
 		signal := connection.Evaluate()
 		if signal == HI {
-			return HI
+			resultSignal = HI
 		}
 	}
-	return LOW
+	return resultSignal
 }
 
 func NewORGate() ORGate {
@@ -62,14 +63,15 @@ func (gate *ANDGate) AddConnection(connection Connection) {
 }
 
 func (gate ANDGate) Evaluate() Signal {
+	resultSignal := HI
 	for i := 0; i < len(gate.Connections); i++ {
 		connection := gate.Connections[i]
 		signal := connection.Evaluate()
 		if signal == LOW {
-			return LOW
+			resultSignal = LOW
 		}
 	}
-	return HI
+	return resultSignal
 }
 
 func NewANDGate() ANDGate {
