@@ -61,7 +61,7 @@ func TestORGateHIAndLOW(t *testing.T) {
 }
 
 func TestNOTGateHIToLOW(t *testing.T) {
-  notGate := NewNOTGate()
+	notGate := NewNOTGate()
 	signalHI := NewSignalGate(HI)
 	NewConnection(&signalHI, &notGate)
 	signal := notGate.Evaluate()
@@ -71,7 +71,7 @@ func TestNOTGateHIToLOW(t *testing.T) {
 }
 
 func TestNOTGateLOWToHI(t *testing.T) {
-  notGate := NewNOTGate()
+	notGate := NewNOTGate()
 	signalLOW := NewSignalGate(LOW)
 	NewConnection(&signalLOW, &notGate)
 	signal := notGate.Evaluate()
